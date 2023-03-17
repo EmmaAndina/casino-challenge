@@ -3,5 +3,8 @@
     "2captcha": "^3.0.5",
     "cypress": "^12.8.1",
     "deathbycaptcha": "^0.0.3"
+  },"scripts": {
+    "test:a": "cypress run --spec cypress/e2e/challenge-a.cy.js",
+    "test:b": "cypress run --spec cypress/e2e/challenge-b.cy.js"
   }
 }

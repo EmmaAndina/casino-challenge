@@ -1,82 +1,82 @@
-describe('Registro de usuario en el casino', () => {
-  it('Completa el formulario de registro', () => {
+describe('casino user register', () => {
+  it('complete register form', () => {
 
-    // Dirigirse a la pag de registro
+    // Visit website
     cy.visit('https://demo.casino/user/registration')
     
 
-    // Cerrar modal
+    // Close modal
     cy.get('.mfp-close').click()
 
-    // Encuentra el campo de correo electrónico y escribe la dirección de correo
+    // Mail
     cy.get('[data-test="input-email"]')
       .type('challenge-qa-2023@challenge.com')
     
-    // Encuentra el select de moneda y selecciona EUR
+    // Select and change currency
     cy.get('.input__wrapper > .selectric-wrapper > .selectric > .label').click()
     cy.get('.input__wrapper > .selectric-wrapper > .selectric-items > .selectric-scroll > ul > [data-index="1"]').click()
     
-    // Encuentra los campos de contraseña y repite la contraseña y escribe la contraseña
+    // Password and confirmation
     cy.get('[data-test="input-password"]')
       .type('Test1234!')
     cy.get('[data-test="input-password_confirmation"]')
       .type('Test1234!')
     
-    // Marca el checkbox de "terms and conditions"
+    // Checkbox "terms and conditions"
     cy.get('.input__wrapper > label')
       .click()
     
-    // Hace clic en el botón "Create account"
+    // Click "Create account"
     cy.get('[data-test="control-submit"]')
       .click()
 
-    // Esperar al sistema
+    // Waiting for system
     cy.wait(5000);
 
-    // Comprobar que el proceso fue exitoso
+    // Assert confirmation
     cy.get('.notification__title').should('be.visible')
       
     
   })
 
-  it('Completa el formulario de registro con captcha', () => {
+  it('complete register form plus captcha', () => {
     
-    // Dirigirse a la pag de registro
+    // Registration URL
     cy.visit('https://demo.casino/user/registration')    
 
-    // Cerrar modal
+    // Close modal
     cy.get('.mfp-close').click()
 
-    // Espera hasta que aparezca el formulario de registro
+    // Wait from
     cy.get('[data-test="input-email"]').should('exist')
 
-    // Ingresa la dirección de correo electrónico
+    // Email
     cy.get('[data-test="input-email"]').type('challengetest2023@challenge.com')
 
-    // Cambiar moneda a EUR
+    // Change currency
     cy.get('.input__wrapper > .selectric-wrapper > .selectric > .label').click()
     cy.get('.input__wrapper > .selectric-wrapper > .selectric-items > .selectric-scroll > ul > [data-index="1"]').click()
 
-    // Contraseña y confirmación
+    // Password y confirmation
     cy.get('[data-test="input-password"]').type('Test1234!')
     cy.get('[data-test="input-password_confirmation"]').type('Test1234!')
 
-    // Check el checkbox de "terms and conditions"
+    // Checkbox "terms and conditions"
     cy.get('.input__wrapper > label').click()
 
-    // Clic en el botón "Create account"
+    // Click "Create account"
     cy.get('[data-test="control-submit"]').click()      
 
-/* RESOLUCIÓN DEL CAPTCHA CON ANTICAPTCHA
+/* CAPTCHA RESOLUTION WITH ANTICAPTCHA
     
-    // Espera hasta que aparezca el captcha
+    // Wait for captcha
     cy.get('.captcha__image').should('exist')
 
-    // Obtén la URL del captcha
+    // Get captcha URL
     cy.get('.captcha__image > img').invoke('attr', 'src').then((captchaUrl) => {
       
       
-    // Utiliza la API de anticaptcha.com para resolver el captcha
+    //  API anticaptcha.com for captcha solving
     cy.request({
         method: 'POST',
         url: 'https://api.anti-captcha.com/createTask',
@@ -90,10 +90,10 @@ describe('Registro de usuario en el casino', () => {
       }).then((response) => {
         const taskId = response.body.taskId
         
-    // Espera hasta que se resuelva el captcha
+    // Wait for system to solve it
       cy.wait(5000)
 
-    // Verifica el resultado del captcha
+    // Verify captcha solution
         cy.request({
           method: 'POST',
           url: 'https://api.anti-captcha.com/getTaskResult',
@@ -104,7 +104,7 @@ describe('Registro de usuario en el casino', () => {
         }).then((response) => {
           const captchaText = response.body.solution.text
           
-          // Ingresa el resultado del captcha en el campo correspondiente
+          // Input captcha
           cy.get('[data-test="input-captcha"]').type(captchaText)
 
 
@@ -112,10 +112,10 @@ describe('Registro de usuario en el casino', () => {
       })
     })*/
 
-    // Esperar al sistema
+    // Wait for system
     cy.wait(5000);
 
-    // Comprobar proceso exitoso
+    // Assert confirmation
     cy.get('.notification__title').should('be.visible')
 
 
