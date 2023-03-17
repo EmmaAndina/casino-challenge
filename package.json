@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "2captcha": "^3.0.5",
+    "cypress": "^12.8.1",
+    "deathbycaptcha": "^0.0.3"
+  }
+}
